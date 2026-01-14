@@ -1,8 +1,10 @@
+#!/usr/bin/env bash
+
 function gui() {
-  path=$(wslpath -w "$1")
+  filepath=$(wslpath -w "$1")
   if [[ "$2" == "-s" ]]; then
-    explorer.exe /select,$path
+    explorer.exe /select,$filepath
   else
-    explorer.exe $path
+    explorer.exe $filepath
   fi
 }

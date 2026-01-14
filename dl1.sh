@@ -1,12 +1,17 @@
+#!/usr/bin/env bash
+
 function dl1() {
-  WIN_USER=$(
+  DL_DIR="$(
     powershell.exe -NoProfile -Command \
-      "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8; \$env:UserName" \
+      "[Console]::OutputEncoding=[System.Text.Encoding]::UTF8
+      (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path" \
     | tr -d '\r'
-  )
-  pushd "/mnt/c/Users/$WIN_USER/Downloads" > /dev/null
-  file="$(ls -t | head -n 1)"
-  path="$(wslpath -w $file)"
-  explorer.exe "$path"
+  )"
+  DL_DIR=$(wslpath "$DL_DIR")
+
+  pushd "$DL_DIR" > /dev/null
+  file="$(command ls -t | head -n 1)"
+  filepath="$(wslpath -w $file)"
+  explorer.exe "$filepath"
   popd > /dev/null
 }

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 function cvim() {
   ext=${1:-txt}
   temp=$(mktemp --suffix=".$ext")
